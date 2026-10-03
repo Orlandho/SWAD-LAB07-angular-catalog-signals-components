@@ -1,0 +1,41 @@
+<!-- appResaltar: aplica la directiva de atributo creada en el Paso 17 -->
+<!-- [class.tarjeta--seleccionada]: class binding dependiente de un input -->
+<article class="tarjeta"
+         appResaltar
+         [class.tarjeta--seleccionada]="seleccionado()">
+
+  <div class="tarjeta__cuerpo">
+    <!-- Interpolacion simple -->
+    <h2 class="tarjeta__titulo">{{ producto().nombre }}</h2>
+
+    <!-- Interpolacion con pipe de moneda oficial del Peru -->
+    <p class="tarjeta__precio">
+      {{ producto().precio | currency:'PEN':'S/ ' }}
+    </p>
+
+    <!-- ngClass con objeto de condiciones -->
+    <div class="tarjeta__stock">
+      <span>Stock: {{ producto().stock }}</span>
+      <span class="badge-stock"
+            [ngClass]="{
+              'badge-stock--ok': producto().estadoStock === 'OK',
+              'badge-stock--insuficiente': producto().estadoStock === 'INSUFICIENTE'
+            }">
+        {{ producto().estadoStock }}
+      </span>
+    </div>
+
+    <!-- Bloque @if: advertencia si el stock es bajo (computed signal) -->
+    @if (esStockBajo()) {
+      <p class="tarjeta__aviso text-danger small mt-2 mb-0">
+        Pocas unidades disponibles
+      </p>
+    }
+
+    <!-- matButton="filled": boton con estilo Material Design (Paso 25) -->
+    <button type="button" matButton="filled" class="mt-3 w-100"
+            [disabled]="seleccionado()" (click)="alSeleccionar()">
+      {{ seleccionado() ? 'Seleccionado' : 'Ver detalle' }}
+    </button>
+  </div>
+</article>

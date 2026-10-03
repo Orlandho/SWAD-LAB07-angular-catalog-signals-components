@@ -1,0 +1,43 @@
+@use 'styles/variables' as v;
+
+.tarjeta {
+  border: v.$borde-tarjeta;
+  border-radius: v.$radio-borde;
+  background-color: #fff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  &--seleccionada {
+    border-color: v.$color-primario;
+    box-shadow: 0 0 0 2px rgba(v.$color-primario, 0.25);
+  }
+
+  &__cuerpo {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  &__titulo {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  &__precio {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: v.$color-primario;
+    margin-bottom: 0.5rem;
+  }
+
+  &__stock {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+  }
+}

@@ -1,0 +1,58 @@
+<section class="container py-4">
+  <!-- Barra superior: buscador, filtro y contador con Flexbox -->
+  <div class="barra mb-4">
+    <!-- $event.target: captura lo que el usuario escribe (event binding) -->
+    <input type="search"
+           class="form-control"
+           placeholder="Buscar por nombre..."
+           (input)="buscar($any($event.target).value)" />
+
+    <!-- Actividad Autonoma A1: Boton filtro solo stock insuficiente -->
+    <button type="button"
+            class="btn text-nowrap"
+            [class.btn-danger]="soloStockBajo()"
+            [class.btn-outline-danger]="!soloStockBajo()"
+            (click)="toggleSoloStockBajo()">
+      {{ soloStockBajo() ? 'Filtro Stock Bajo Activo' : 'Solo stock insuficiente' }}
+    </button>
+
+    <!-- Contador con signal derivado: se actualiza al escribir -->
+    <span class="text-muted text-nowrap">
+      {{ productosFiltrados().length }} de {{ productos().length }}
+    </span>
+  </div>
+
+  <!-- Actividad Autonoma A3: Componente ResumenInventario sobre la grilla -->
+  <app-resumen-inventario [productos]="productosFiltrados()"></app-resumen-inventario>
+
+  <!-- Zona de contenido: catalogo a la izquierda, detalle a la derecha -->
+  <!-- class binding: cambia el layout si hay un producto seleccionado -->
+  <div class="contenido"
+       [class.contenido--con-detalle]="seleccionado() !== null">
+
+    <!-- Grilla de tarjetas con CSS Grid -->
+    <div class="grilla">
+      <!-- Bloque @for con track obligatorio por id -->
+      @for (p of productosFiltrados(); track p.id) {
+        <app-producto-card
+          [producto]="p"
+          [seleccionado]="p.id === seleccionado()?.id"
+          (seleccionar)="mostrarDetalle($event)">
+        </app-producto-card>
+      } @empty {
+        <!-- Se muestra cuando la busqueda no coincide con ningun producto -->
+        <p class="grilla__vacio alert alert-info mb-0">
+          No se encontraron productos que coincidan con la búsqueda.
+        </p>
+      }
+    </div>
+
+    <!-- Panel de detalle: solo existe en el DOM si hay seleccion -->
+    @if (seleccionado(); as prod) {
+      <app-detalle-producto
+        [producto]="prod"
+        (cerrar)="cerrarDetalle()">
+      </app-detalle-producto>
+    }
+  </div>
+</section>

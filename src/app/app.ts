@@ -1,11 +1,21 @@
-import { Component, signal } from '@angular/core';
+import { Component, computed } from '@angular/core';
+import { Encabezado } from './components/encabezado/encabezado';
+import { Catalogo } from './components/catalogo/catalogo';
+import { PRODUCTOS_MOCK } from './data/productos-mock';
 
 @Component({
-  imports: [],
   selector: 'app-root',
-  styleUrl: './app.scss',
+  standalone: true,
+  imports: [Encabezado, Catalogo],
   templateUrl: './app.html',
+  styleUrl: './app.scss',
 })
 export class App {
-  protected readonly title = signal('SWAD-LAB07-angular-catalog-signals-components');
+  // Cantidad total de productos disponibles en el mock
+  readonly totalProductos = PRODUCTOS_MOCK.length;
+
+  // Actividad Autonoma A2: calcula productos con stock menor que 5
+  readonly totalStockBajo = computed(() =>
+    PRODUCTOS_MOCK.filter(p => p.stock < 5).length
+  );
 }

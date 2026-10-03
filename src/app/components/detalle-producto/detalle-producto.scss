@@ -1,0 +1,11 @@
+@use 'styles/variables' as v;
+
+.detalle {
+  border: v.$borde-tarjeta;
+  border-radius: v.$radio-borde;
+  background-color: #fff;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 1rem;
+}

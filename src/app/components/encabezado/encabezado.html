@@ -1,0 +1,22 @@
+<header class="bg-dark text-white py-3 shadow-sm">
+  <div class="container d-flex justify-content-between align-items-center">
+    <!-- Interpolacion: titulo del input -->
+    <h1 class="h4 mb-0">{{ titulo() }}</h1>
+
+    <div class="d-flex align-items-center gap-2">
+      <!-- Property binding + interpolacion: clase condicional segun total -->
+      <span class="badge"
+            [class.bg-primary]="totalProductos() > 0"
+            [class.bg-secondary]="totalProductos() === 0">
+        {{ totalProductos() }} productos en catalogo
+      </span>
+
+      <!-- Actividad Autonoma A2: insignia roja si hay stock bajo -->
+      @if (totalStockBajo() > 0) {
+        <span class="badge bg-danger">
+          {{ totalStockBajo() }} con stock bajo
+        </span>
+      }
+    </div>
+  </div>
+</header>
