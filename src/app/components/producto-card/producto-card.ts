@@ -2,12 +2,13 @@ import { Component, computed, input, output } from '@angular/core';
 import { CurrencyPipe, NgClass } from '@angular/common';
 import { Producto } from '../../models/producto';
 import { Resaltar } from '../../directives/resaltar';
+import { StockCritico } from '../../directives/stock-critico';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-producto-card',
   standalone: true,
-  imports: [NgClass, CurrencyPipe, Resaltar, MatButtonModule],
+  imports: [NgClass, CurrencyPipe, Resaltar, StockCritico, MatButtonModule],
   templateUrl: './producto-card.html',
   styleUrl: './producto-card.scss',
 })

@@ -32,10 +32,16 @@ En aplicaciones distribuidas de comercio electronico y logistica, la coordinacio
    - **A1**: Filtro "Solo stock insuficiente" con signal booleano reactivo, actualizacion con `update()`, enlace de clases en el boton e integracion en la senal computada.
    - **A2**: Insignia de advertencia en el componente `Encabezado` con input `totalStockBajo` y renderizado condicional con `@if`.
    - **A3**: Componente standalone `ResumenInventario` que calcula en tiempo real el valor economico total del inventario visible y se sincroniza reactivamente con las busquedas y filtros.
+   - **RETO**: Directiva de atributo `StockCritico` (`[appStockCritico]`, `[umbral]`) con enlace dinamico sobre el host `[style.border-left]` para advertencias visuales inmediatas (borde rojo de 6px) en articulos bajo umbral critico.
 
 ---
 
 ## 2. Diagrama Arquitectonico y Flujo de Datos
+
+![Diagrama Arquitectónico](./mermaid%20diagramas/arquitectura.svg)
+
+<details>
+<summary>Visualizar especificación fuente en formato Mermaid</summary>
 
 ```mermaid
 graph TD
@@ -46,10 +52,14 @@ graph TD
     Catalogo --> Grid[Grilla CSS Grid]
     Grid --> ProductCard1[ProductoCard Component 1]
     Grid --> ProductCardN[ProductoCard Component N]
+    ProductCard1 --> DirResaltar[Directiva Resaltar: hover]
+    ProductCard1 --> DirStockCritico[Directiva StockCritico Reto: border-left]
     Catalogo -.-> Detalle[DetalleProducto Component: panel lateral]
     ProductCard1 -.->|output: seleccionar| Catalogo
     Detalle -.->|output: cerrar| Catalogo
 ```
+
+</details>
 
 ---
 
@@ -114,7 +124,9 @@ Resultados verificados:
 - Filtrado por coincidencia de texto mediante `computed()`.
 - Alternancia del filtro reactivo de stock insuficiente (Actividad A1).
 - Calculo matematico exacto del valor total del inventario en soles (Actividad A3).
-- Total: 13/13 pruebas unitarias aprobadas (100% exito).
+- Directiva `StockCritico` (RETO): aplicacion y remocion de borde rojo segun umbrales predeterminados y personalizados.
+- Componente `ProductoCard`: binding de datos, formateo con currency pipe, estado de seleccion y emision de outputs.
+- Total: 21/21 pruebas unitarias aprobadas (100% exito).
 
 ---
 

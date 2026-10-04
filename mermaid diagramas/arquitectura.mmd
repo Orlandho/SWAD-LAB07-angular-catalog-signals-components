@@ -1,0 +1,13 @@
+graph TD
+    AppRoot[App Component: totalProductos, totalStockBajo] --> Encabezado[Encabezado Component]
+    AppRoot --> Catalogo[Catalogo Component: signals productos, filtro, soloStockBajo]
+    Catalogo --> Resumen[ResumenInventario: computed valorTotal, unidadesTotales]
+    Catalogo --> FilterBar[Barra de Busqueda y Toggle A1]
+    Catalogo --> Grid[Grilla CSS Grid]
+    Grid --> ProductCard1[ProductoCard Component 1]
+    Grid --> ProductCardN[ProductoCard Component N]
+    ProductCard1 --> DirResaltar[Directiva Resaltar: hover]
+    ProductCard1 --> DirStockCritico[Directiva StockCritico Reto: border-left]
+    Catalogo -.-> Detalle[DetalleProducto Component: panel lateral]
+    ProductCard1 -.->|output: seleccionar| Catalogo
+    Detalle -.->|output: cerrar| Catalogo

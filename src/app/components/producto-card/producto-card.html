@@ -1,7 +1,9 @@
 <!-- appResaltar: aplica la directiva de atributo creada en el Paso 17 -->
 <!-- [class.tarjeta--seleccionada]: class binding dependiente de un input -->
+<!-- [appStockCritico]: directiva del RETO que agrega borde izquierdo rojo si stock < 5 -->
 <article class="tarjeta"
          appResaltar
+         [appStockCritico]="producto().stock"
          [class.tarjeta--seleccionada]="seleccionado()">
 
   <div class="tarjeta__cuerpo">
